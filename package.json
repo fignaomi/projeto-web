@@ -1,0 +1,20 @@
+{
+  "name": "projeto-web",
+  "version": "1.0.0",
+  "description": "Projeto da disciplina Desenvolvimento de Sistemas WEB - 1º Sem 2022",
+  "main": "./src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fignaomi/projeto-web.git"
+  },
+  "author": "Naomi Figueiredo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fignaomi/projeto-web/issues"
+  },
+  "homepage": "https://github.com/fignaomi/projeto-web#readme"
+}
