@@ -1,0 +1,41 @@
+/*-- Barra Navegação --*/
+.img-logo {
+	height: 35px;
+	
+	display: block;
+	background: url('../imagens/logoPrincipal.png') no-repeat;
+	background-size: contain;
+	color: transparent;
+}
+
+.nav{
+	line-height: 65px;
+	height: 65px; 
+	padding-right: 20px;
+}
+nav.navbar-transparente {
+	
+	/* background: rgba(0, 0, 0, 0.6); */
+	border: none;
+}
+
+.navbar-brand{
+	height: 100%;
+}
+#for{
+	padding: 5px 15px;
+}
+.divisor{
+	width: 1px;
+	height: 16px;
+	background: white;
+	margin: 16px 10px;
+}
+.navbar-inverse .navbar-nav>li>a, .nav a {
+	color: white;
+}
+
+.navbar-inverse .navbar-nav>li>a:hover, .nav a:hover {
+	color: #F0E68C;
+	background: none;
+}
