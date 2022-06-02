@@ -1,5 +1,5 @@
 const Joi = require('joi');
-const oleoController = require('../controllers/oleo');
+const oleoController = require('../controllers/Oleo');
 
 
 module.exports = app => {
@@ -9,11 +9,12 @@ module.exports = app => {
     app.get('/oleos', (req, res) => {
         oleoController.lista(req, res);
     });
-    app.get('/insere-oleo', (req, res) => {
+    app.get('/insereoleo', (req, res) => {
         oleoController.insere(req,res); 
     });
-    app.post('/salva', (req, res) => {
+    app.post('/salvaoleo', (req, res) => {
         oleoController.salva(req,res);
+        //res.send("foi");
     });
     app.get('/edita/:id', (req, res) => {
         oleoController.edita(req,res); 

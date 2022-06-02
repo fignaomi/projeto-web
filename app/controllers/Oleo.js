@@ -16,14 +16,15 @@ module.exports = {
         res.render('oleo/insere')
     },
     salva: function (req, res) {
+        
         const schema = Joi.object({
             nomecomum: Joi.string().min(1).max(50).required(),
             nomecientifico: Joi.string().min(1).max(50).required(),
             foto: Joi.string().max(200).required(),
             descricao: Joi.string().min(1).max(500).required()
         });
-
         const result = schema.validate(req.body);
+
         const oleo = req.body;
         if (result.error) {
             res.send(result.error.details[0].message);
@@ -32,7 +33,7 @@ module.exports = {
                 if (error) {
                     res.send("Problemas com a conexão!!!");
                 } else {
-                    res.render('oleo/home');
+                    res.redirect("oleo/home" , { oleo: result })
                 }
             });
         }
