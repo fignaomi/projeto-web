@@ -1,62 +1,78 @@
-const { render } = require('express/lib/response');
-const conexao = require('../../config/dbServer');
+const connection = require('../../config/dbServer');
+const oleo = require('../models/oleo');
+const oleoModel = require('../models/oleo');
+const Joi = require("joi");
 
-class Oleo {
-
-    listar(res) {
-        const sql = 'SELECT * FROM oleo';
-
-        conexao.query(sql, (error, results) => {
-            if(error) {
-                res.status(400).json(error)
+module.exports = {
+    lista: function (req, res) {
+        oleoModel.get(connection, function (error, result) {
+            if (error) {
+                res.send("Problemas com a conexão!!!");
+            } else {
+                res.render('oleo/home', { oleo: result });
             }
-            //res.status(201).json(results);
-            res.render('listarOleos.ejs', { dados : results });
         });
-    };
-    buscaPorId(id, res){
-        const sql = `SELECT * FROM oleo WHERE id = ${id}`; 
-        conexao.query(sql, id, (error, result) =>{
-            if(error){
-                res.status(400).json(error);
+    },
+    insere: function (req, res) {
+        res.render('oleo/insere')
+    },
+    salva: function (req, res) {
+        const schema = Joi.object({
+            nomecomum: Joi.string().min(1).max(50).required(),
+            nomecientifico: Joi.string().min(1).max(50).required(),
+            foto: Joi.string().max(200).required(),
+            descricao: Joi.string().min(1).max(500).required()
+        });
+
+        const result = schema.validate(req.body);
+        const oleo = req.body;
+        if (result.error) {
+            res.send(result.error.details[0].message);
+        } else {
+            oleoModel.create(connection, oleo, function (error) {
+                if (error) {
+                    res.send("Problemas com a conexão!!!");
+                } else {
+                    res.render('oleo/home')
+                }
+            });
+        }
+    },
+    edita: function (req, res) {
+        oleoModel.getId(connection, req.params.id, function (error, result) {
+            res.render('oleo/edita', { oleo: result[0] })
+        })
+    },
+    atualiza: function (req, res) {
+        const id = parseInt(req.params.id)
+        const oleo = req.body;
+        const schema = Joi.object({
+            nomecomum: Joi.string().min(1).max(50).required(),
+            nomecientifico: Joi.string().min(1).max(50).required(),
+            foto: Joi.string().max(200).required(),
+            descricao: Joi.string().min(1).max(200).required(),
+        });
+        const result = schema.validate(req.body);
+
+        if (result.error) {
+            res.status(400).send(result.error.details[0].message);
+        } else {
+            oleoModel.update(connection, oleo, id, function (error) {
+                if (error) {
+                    res.send("Problemas com a conexão!!!");
+                } else {
+                    res.redirect("/home")
+                }
+            })
+        }
+    },
+    remove: function (req, res) {
+        oleoModel.delete(connection, req.params.id, function (error) {
+            if (error) {
+                res.send("Problemas com a conexão!!!");
+            } else {
+                res.redirect("/home")
             }
-            res.status(201).json(result);
-            
-        });
-    }
-    alteraPorId(id, valores, res){
-        const sql = `UPDATE oleo SET ? WHERE id = ${id}`;        
-        conexao.query(sql, [valores,id], (error, result) =>{
-            if(error){
-                res.status(400).json(error);
-            }
-            res.status(201).json(result);
-        });
-    }
-    remover(id, res){
-        const sql = `DELETE FROM oleo WHERE id = ${id}`;
-
-        conexao.query(sql, id, (error, results) => {
-            if(error){
-                res.status(400).json(error)
-            }
-            res.status(201).json(results)
-        });
-    };
-
-    inserir(oleo,req) {
-        const sql = `INSERT INTO oleo SET ?`;
-        //const sql = `INSERT INTO oleo (nome, nomeCientifico, foto, descricao) VALUES ("${req.body.nome}", "${req.body.nomeCientifico}","${req.body.foto}", "${req.body.descricao}")`;
-
-        conexao.query(sql, oleo, (res, error, results) => {
-            // if(error){
-            //     res.status(400).json(error)
-            // }
-            //     res.status(201).json(results)
-           
-        });
-
+        })
     }
 }
-
-module.exports = new Oleo; 

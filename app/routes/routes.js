@@ -1,60 +1,27 @@
 const Joi = require('joi');
-const Oleo = require('../controllers/Oleo');
+const oleoController = require('../controllers/oleo');
+
 
 module.exports = app => {
-
     app.get('/', (req, res) => {
-        res.render('aroma.ejs');
+        res.render("aroma.ejs")
     });
-
     app.get('/oleos', (req, res) => {
-        Oleo.listar(res);
+        oleoController.lista(req, res);
     });
-
-    app.get('/oleo/:id', (req, res) => {
-        const id = parseInt(req.params.id)
-        Oleo.buscaPorId(id, res)
+    app.get('/insere-oleo', (req, res) => {
+        oleoController.insere(req,res); 
     });
-
-    app.put('/oleo/:id', (req, res) => {
-        const id = parseInt(req.params.id)
-        const oleo = req.body;
-        const schema = Joi.object({
-            nome: Joi.string().min(1).max(50).required(),
-            nomeCientifico: Joi.string().min(1).max(50).required(),
-            foto: Joi.string().max(200).required(),
-            descricao: Joi.string().min(1).max(200).required(),
-
-        });
-
-        const result = schema.validate(req.body);
-
-        if (result.error) return res.status(400).send(result.error.details[0].message);
-        Oleo.alteraPorId(id, oleo, res);
+    app.post('/salva-oleo', (req, res) => {
+        oleoController.salva(req,res);
     });
-    
-    app.post('/oleo', (req, res) => {
-
-        const schema = Joi.object({
-            nome: Joi.string().min(1).max(50).required(),
-            nomeCientifico: Joi.string().min(1).max(50).required(),
-            foto: Joi.string().max(200).required(),
-            descricao: Joi.string().min(1).max(200).required()
-
-        });
-
-        const result = schema.validate(req.body);
-
-        if (result.error) return res.status(400).send(result.error.details[0].message);
-        const oleo = req.body;
-        res.send(oleo);
-        Oleo.inserir(oleo, res); 
-        
-    })
-
-    app.delete('/oleo/:id', (req,res) => {
-        const id = parseInt(req.params.id);
-        Oleo.remover(id, res);
+    app.get('/edita/:id', (req, res) => {
+        oleoController.edita(req,res); 
     });
-
+    app.put('atualiza/:id', (req, res) => {
+        oleoController.atualiza(req,res)
+    });
+    app.delete('/deleta/:id', (req,res) => {
+        oleoController.remove(req,res)
+    });
 };
