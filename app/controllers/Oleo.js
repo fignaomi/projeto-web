@@ -1,5 +1,4 @@
 const connection = require('../../config/dbServer');
-const oleo = require('../models/oleo');
 const oleoModel = require('../models/oleo');
 const Joi = require("joi");
 
@@ -33,7 +32,7 @@ module.exports = {
                 if (error) {
                     res.send("Problemas com a conexão!!!");
                 } else {
-                    res.render('oleo/home')
+                    res.render('oleo/home');
                 }
             });
         }

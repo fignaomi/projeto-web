@@ -12,7 +12,7 @@ module.exports = app => {
     app.get('/insere-oleo', (req, res) => {
         oleoController.insere(req,res); 
     });
-    app.post('/salva-oleo', (req, res) => {
+    app.post('/salva', (req, res) => {
         oleoController.salva(req,res);
     });
     app.get('/edita/:id', (req, res) => {
