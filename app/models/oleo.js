@@ -17,13 +17,8 @@ module.exports = {
             connection.query(querysql, callback);
 
     },
-    update: function (connection, oleo, id, callback) {
-        let querysql = `UPDATE oleo SET  
-        nome_comum = "${oleo.nome_comum}", 
-        nome_cientifico = "${oleo.nome_cientifico}", 
-        foto = "${oleo.foto}",
-        descricao = "${oleo.descricao}"
-        WHERE id_oleo = ${id}`;
+    update: function (connection, oleo,id, callback) {
+        let querysql = `UPDATE oleo SET nome_comum = "${oleo.nome_comum}", nome_cientifico = "${oleo.nome_cientifico}", foto = "${oleo.foto}", descricao = "${oleo.descricao}" WHERE id_oleo = ${id}`;
         connection.query(querysql, callback);
     },
     delete: function (connection, id, callback) {

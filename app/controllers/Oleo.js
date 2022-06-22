@@ -8,7 +8,7 @@ module.exports = {
             if (error) {
                 res.send("Problemas com a conexão!!!");
             } else {
-                res.render('oleo/home', { oleo: result });
+                res.render('oleo/listar', { oleos: result });
             }
         });
     },
@@ -18,8 +18,8 @@ module.exports = {
     salva: function (req, res) {
         
         const schema = Joi.object({
-            nomecomum: Joi.string().min(1).max(50).required(),
-            nomecientifico: Joi.string().min(1).max(50).required(),
+            nome_comum: Joi.string().min(1).max(50).required(),
+            nome_cientifico: Joi.string().min(1).max(50).required(),
             foto: Joi.string().max(200).required(),
             descricao: Joi.string().min(1).max(500).required()
         });
@@ -33,7 +33,7 @@ module.exports = {
                 if (error) {
                     res.send("Problemas com a conexão!!!");
                 } else {
-                    res.redirect("oleo/home" , { oleo: result })
+                    res.redirect('/oleos')
                 }
             });
         }
@@ -42,37 +42,38 @@ module.exports = {
         oleoModel.getId(connection, req.params.id, function (error, result) {
             res.render('oleo/edita', { oleo: result[0] })
         })
-    },
+    },  
     atualiza: function (req, res) {
-        const id = parseInt(req.params.id)
-        const oleo = req.body;
+        
         const schema = Joi.object({
-            nomecomum: Joi.string().min(1).max(50).required(),
-            nomecientifico: Joi.string().min(1).max(50).required(),
+            nome_comum: Joi.string().min(1).max(50).required(),
+            nome_cientifico: Joi.string().min(1).max(50).required(),
             foto: Joi.string().max(200).required(),
-            descricao: Joi.string().min(1).max(200).required(),
+            descricao: Joi.string().min(1).max(500).required()
         });
         const result = schema.validate(req.body);
-
+        
+        const oleo = req.body;
         if (result.error) {
-            res.status(400).send(result.error.details[0].message);
+            res.send(result.error.details[0].message);
         } else {
-            oleoModel.update(connection, oleo, id, function (error) {
+            oleoModel.update(connection, oleo,req.params.id, function (error) {
                 if (error) {
                     res.send("Problemas com a conexão!!!");
                 } else {
-                    res.redirect("/home")
+                    res.redirect('/oleos')
                 }
-            })
+            });
         }
     },
     remove: function (req, res) {
         oleoModel.delete(connection, req.params.id, function (error) {
             if (error) {
                 res.send("Problemas com a conexão!!!");
-            } else {
-                res.redirect("/home")
             }
+            // } else {
+            //     res.redirect('/oleos')
+            // }
         })
     }
 }

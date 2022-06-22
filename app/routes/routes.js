@@ -1,10 +1,22 @@
-const Joi = require('joi');
-const oleoController = require('../controllers/Oleo');
+const oleoController = require('../controllers/oleo');
+const userController = require('../controllers/user');
 
 
 module.exports = app => {
     app.get('/', (req, res) => {
-        res.render("aroma.ejs")
+        res.render("index.ejs")
+    });
+    app.get('/cadastrausuario', function (req, res) {
+        userController.cadastra(req,res);
+    });
+    app.post('/salvarusuario', (req, res) => {
+        userController.salvauser(req,res);
+    });
+    app.get('/login', function (req, res) {
+        userController.valida(req,res);
+    });
+    app.post('/autentica', (req, res) => {
+        userController.autentica(req,res);
     });
     app.get('/oleos', (req, res) => {
         oleoController.lista(req, res);
@@ -14,15 +26,16 @@ module.exports = app => {
     });
     app.post('/salvaoleo', (req, res) => {
         oleoController.salva(req,res);
-        //res.send("foi");
     });
     app.get('/edita/:id', (req, res) => {
         oleoController.edita(req,res); 
     });
-    app.put('atualiza/:id', (req, res) => {
+    app.post('/atualiza/:id', (req, res) => {
         oleoController.atualiza(req,res)
     });
-    app.delete('/deleta/:id', (req,res) => {
+    app.get("/remove/:id", (req, res) => {
         oleoController.remove(req,res)
+        res.redirect('/oleos')
+
     });
 };

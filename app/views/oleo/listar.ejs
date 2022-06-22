@@ -1,0 +1,32 @@
+<%- include ('../partials/header.ejs'); %>
+<body>
+    <%- include ('../partials/homenavbar.ejs'); %>
+    <div class="container">
+        <hr>
+        <h1> Oleos </h1>
+        <hr>
+        <a href="/insereoleo" class="btn btn-success">Cadastrar novo óleo</a>
+        <hr>
+        <% oleos.forEach(oleo => { %>
+            <br>
+            <div class="card">
+                <div class="card-header">
+                  <h3><%= oleo.nome_comum %></h3>                
+                </div>
+                <div class="card-body">
+                    <h6>Nome Cientifico: <%= oleo.nome_cientifico %></h6>
+                    <img src="<%= oleo.foto%>" style="width: 100px"</td>
+                    <h6>Descrição: <%= oleo.descricao %></h6>
+                </div>
+                <div class="card-footer">
+                    <a href="edita/<%= oleo.id_oleo %>"</a><button class="btn btn-success">Editar</button></a>
+                    <a href="remove/<%= oleo.id_oleo %>"</a><button class="btn btn-danger">Excluir</button></a>
+
+                </div>
+            </div>
+        <% }) %>
+
+    </div>
+
+</body>
+<%- include ('../partials/footer.ejs'); %>

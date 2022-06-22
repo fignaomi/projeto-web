@@ -1,28 +1,23 @@
-<!DOCTYPE html>
-<html lang="pt">
+<%- include ('../partials/header.ejs'); %>
+<body>
+    <%- include ('../partials/homenavbar.ejs'); %>
+    <div class="card-header">
+        <h3>Editar óleo</h3>
+    </div>
+    <div class="container">
+        <form method="POST" action="/atualiza/<%= oleo.id_oleo %>">
+            <label>Nome Comum</label>
+            <input type="text" placeholder="Nome Comum" class="form-control" name="nome_comum" value="<%= oleo.nome_comum %>">
+            <label>Nome Cientifico</label>
+            <input type="text" placeholder="Nome Cientifico" class="form-control" name="nome_cientifico" value="<%= oleo.nome_cientifico %>">
+            <label>Foto</label>
+            <input type="text" placeholder="digite a URL da imagem" class="form-control" name="foto" value="<%= oleo.foto %>">
+            <br><label>Descrição</label>
+            <textarea placeholder="Descreva seu óleo aqui" class="form-control" name="descricao"><%= oleo.descricao %></textarea>
+            <br>
+            <button class="btn btn-primary">Salvar</button>
+        </form >
+    </div>
+</body>
+<%- include ('../partials/footer.ejs'); %>
 
-<head>
-    <meta charset="utf-8" />
-    <title>Óleos Essenciais</title>
-</head>
-<form action="http://localhost:3000/atualiza/:id">
-    <div class="form-group">
-        <label>Nome Comum</label>
-        <input type="text" class="form-control" name="nomecomum" placeholder="...">
-    </div>
-    <div class="form-group">
-        <label>Nome Cientifico</label>
-        <input type="text" class="form-control" name="nomecientifico" placeholder="...">
-    </div>
-    <div class="form-group">
-        <label>Foto</label>
-        <input type="text" class="form-control" name="foto" placeholder="...">
-    </div>
-    <div class="form-group">
-        <label>Descrição</label>
-        <textarea class="form-control" name="descricao" rows="3"></textarea>
-    </div>
-    <input type="submit" class="button" value="Editar">
-</form>
-
-</html>
