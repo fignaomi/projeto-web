@@ -19,6 +19,7 @@
   "homepage": "https://github.com/fignaomi/projeto-web#readme",
   "dependencies": {
     "consign": "^0.1.6",
+    "cookie-session": "^2.0.0",
     "ejs": "^3.1.8",
     "express": "^4.18.1",
     "express-session": "^1.17.3",
