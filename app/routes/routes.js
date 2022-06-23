@@ -1,6 +1,6 @@
-const oleoController = require('../controllers/oleo');
 const userController = require('../controllers/user');
 const adminAuth = require("../middlewares/adminAuth");
+const oleoController = require('../controllers/oleo');
 
 module.exports = app => {
     app.get('/', (req, res) => {
