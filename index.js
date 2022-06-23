@@ -7,5 +7,5 @@ conexao.connect(error => {
         throw error;
     };
     app = configExpress();
-
+    app.get("/")
 });
