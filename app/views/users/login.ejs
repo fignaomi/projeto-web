@@ -1,20 +1,27 @@
 <%- include ('../partials/header.ejs') %>
+    <%- include ('../partials/navbar.ejs'); %>
 
-<div class="container">
-    <hr> 
-    <div class="card mt-5">
-        <div class="card-header">
-            <h2>Login</h2>
-        </div>
-        <div class="card-body">
-            <form action="/autentica" method="POST">
-                <input class="form-control" name="email" type="email" placeholder="email@exemplo.com"><br>
-                <input class="form-control" name="password" type="password" placeholder="******"><br>
-                <button type="submit" class="btn btn-success btn-block">Logar</button>
-            </form>
+
+    <div class="container">
+        <hr>
+        <div class="card mt-5">
+            <div class="card-header">
+                <h2 style="text-align: center;">Login</h2>
+            </div>
+            <div class="card-body">
+                <form action="/autentica" method="POST">
+                    <div class="row">
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4">
+                            <input class="form-control" name="email" type="email" placeholder="email@exemplo.com"><br>
+                            <input class="form-control" name="password" type="password" placeholder="******"><br>
+                            <button type="submit" class="btn btn-success btn-block">Logar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-</div>
 
 
-<%- include ('../partials/footer.ejs') %>
+    <%- include ('../partials/footer.ejs') %>

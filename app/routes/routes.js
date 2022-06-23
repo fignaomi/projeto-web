@@ -1,6 +1,6 @@
 const oleoController = require('../controllers/oleo');
 const userController = require('../controllers/user');
-
+const adminAuth = require("../middlewares/adminAuth");
 
 module.exports = app => {
     app.get('/', (req, res) => {
@@ -18,24 +18,28 @@ module.exports = app => {
     app.post('/autentica', (req, res) => {
         userController.autentica(req,res);
     });
-    app.get('/oleos', (req, res) => {
+    app.get('/oleos',adminAuth, (req, res) => {
         oleoController.lista(req, res);
     });
-    app.get('/insereoleo', (req, res) => {
+    app.get('/insereoleo',adminAuth, (req, res) => {
         oleoController.insere(req,res); 
     });
-    app.post('/salvaoleo', (req, res) => {
+    app.post('/salvaoleo',adminAuth, (req, res) => {
         oleoController.salva(req,res);
     });
-    app.get('/edita/:id', (req, res) => {
+    app.get('/edita/:id',adminAuth, (req, res) => {
         oleoController.edita(req,res); 
     });
-    app.post('/atualiza/:id', (req, res) => {
+    app.post('/atualiza/:id',adminAuth, (req, res) => {
         oleoController.atualiza(req,res)
     });
-    app.get("/remove/:id", (req, res) => {
+    app.get("/remove/:id", adminAuth,(req, res) => {
         oleoController.remove(req,res)
         res.redirect('/oleos')
 
     });
+    app.get("/logout", (req, res) => {
+        req.session.autorizado = false;
+        res.redirect("/");
+    })
 };

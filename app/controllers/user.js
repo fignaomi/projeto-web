@@ -8,7 +8,7 @@ module.exports = {
         res.render('users/cria')
     },
     salvauser: function (req, res) {
-        
+
         const schema = joi.object({
             email: joi.string().email({ tlds: { allow: false } }).required(),
             password: joi.string().min(3).max(15).required(),
@@ -20,23 +20,31 @@ module.exports = {
         } else {
             let email = req.body.email;
             let password = req.body.password;
-            let confirmPassword = req.body.confirm - password;
-            let passwordCrypted = crypto.createHash("md5").update(password).digest("hex");
+            let confirmPassword = req.body.confirmpassword;
+            if (password != confirmPassword) {
+                
+                res.status(300).render('users/cria',{title:"foi"})
+               
 
-            userModel.create(connection, email, passwordCrypted, function (error) {
-                if (error) {
-                    res.send("Problemas com a conexão!!!");
-                } else {
-                    res.redirect('/login');
-                }
-            });
+            } else {
+                let passwordCrypted = crypto.createHash("md5").update(password).digest("hex");
+
+                userModel.create(connection, email, passwordCrypted, function (error) {
+                    if (error) {
+                        res.send("Problemas com a conexão!!!");
+                    } else {
+                        res.redirect('/login');
+                    }
+                });
+            }
+
         }
     },
     valida: function (req, res) {
         res.render('users/login')
     },
     autentica: function (req, res) {
-        
+
         const schema = joi.object({
             email: joi.string().email({ tlds: { allow: false } }).required(),
             password: joi.string().min(3).max(15).required(),
@@ -49,15 +57,24 @@ module.exports = {
             let email = req.body.email;
             let password = req.body.password;
             let passwordCrypted = crypto.createHash("md5").update(password).digest("hex");
-            
-            userModel.get(connection, email, passwordCrypted, function (result,error) {
-            if(error != null) {
-                req.session.authorized = true;
-                res.redirect('/oleos')
-            } else {
-                res.send("Problemas na autenticação");
-            }
+            userModel.autenticar(connection, email, passwordCrypted, function (error, result) {
+                if (error) {
+                    console.log("Erro");
+                    console.log(error);
+                    console.error("usuário não autenticado");
+                }
+                if (result.length > 0) {
+                    //console.log("Usuário logado");
+                    // console.log("Resultado da query",result);
+                    req.session.autorizado = true;
+                    res.redirect('/oleos');
+                } else {
+                    console.log("Usuário ou password inexistente");
+                    res.render('users/login');
+                }
+
             });
+
         }
     }
 }
