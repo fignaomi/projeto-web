@@ -5,7 +5,7 @@ Para instalá-lo em sua máquina faça os comandos a seguir:
 ```sh
 git clone https://github.com/fignaomi/projeto-web.git
 npm install
-nodemon 
+npm start
 
 ```
 

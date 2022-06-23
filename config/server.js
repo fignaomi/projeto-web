@@ -1,6 +1,5 @@
 const express = require('express');
 const expressSession = require('express-session');
-//var session = require('cookie-session');
 const consign = require('consign');
 
 const port = process.env.PORT || 3000; 
