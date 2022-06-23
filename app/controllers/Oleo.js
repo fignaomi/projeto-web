@@ -71,9 +71,8 @@ module.exports = {
             if (error) {
                 res.send("Problemas com a conexão!!!");
             }
-            // } else {
-            //     res.redirect('/oleos')
-            // }
+            res.redirect('/oleos')
+           
         })
     }
 }
