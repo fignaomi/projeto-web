@@ -1,11 +1,5 @@
-const configExpress = require('./config/server');
-const conexao = require('./config/dbServer');
+const app = require('./config/server');
 
+const routes = require('./app/routes/routes');
 
-conexao.connect(error => {
-    if (error) {
-        throw error;
-    };
-    app = configExpress();
-    
-});
+app(routes);
