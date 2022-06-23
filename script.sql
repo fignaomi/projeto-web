@@ -1,3 +1,24 @@
+CREATE DATABASE  IF NOT EXISTS `aroma` ;
+
+USE `aroma`;
+
+CREATE TABLE `users` (
+  `idusuario` int NOT NULL AUTO_INCREMENT,
+  `email` varchar(45) NOT NULL,
+  `password` varchar(50) NOT NULL,
+  `timestamp` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`idusuario`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `oleo` (
+  `id_oleo` int NOT NULL AUTO_INCREMENT,
+  `nome_comum` varchar(45) NOT NULL,
+  `nome_cientifico` varchar(45) NOT NULL,
+  `foto` varchar(200) DEFAULT NULL,
+  `descricao` varchar(500) NOT NULL,
+  PRIMARY KEY (`id_oleo`)
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
 insert into oleo (nome_comum, nome_cientifico, foto, descricao)
 values("Alecrim", "Rosmarinus officinalis L.",
  "https://firebasestorage.googleapis.com/v0/b/aroma-5ff99.appspot.com/o/alecrim.jpg?alt=media&token=828de97c-bb75-4a76-95c8-a36f084dac0b",

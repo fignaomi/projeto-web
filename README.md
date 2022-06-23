@@ -5,13 +5,12 @@ Para instalá-lo em sua máquina faça os comandos a seguir:
 
 - git clone https://github.com/fignaomi/projeto-web.git
 - npm install
-- nodemon app
+- nodemon 
 
-Criar o DB 
-
-  CREATE DATABASE aroma;
+ DATABASE 
+ execute o script.sql 
   
-  
+Disponível no endereço virtual https://projeto-web-dw2.herokuapp.com/
 
 
 
